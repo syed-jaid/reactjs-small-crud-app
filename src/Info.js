@@ -2,37 +2,29 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from "react-router-dom";
 
-const Form = () => {
-
+const Info = () => {
     const [selectdata, setSelectData] = useState([])
-    const navigation = useNavigate();
+    const [userdata, setuserData] = useState({})
+
+    useEffect(() => {
+        const id = sessionStorage.getItem("Id")
+        // console.log(id)
+        fetch(`http://localhost:5000/userinfo/${id}`)
+            .then((res) => res.json())
+            .then((data) => setuserData(data[0]));
+    }, []);
+    console.log(userdata)
     useEffect(() => {
         fetch("http://localhost:5000/selectingdata")
             .then((res) => res.json())
             .then((data) => setSelectData(data[0].data));
     }, []);
+
     // console.log(selectdata)
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = data => {
-        fetch("http://localhost:5000/saveinfo", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify(data),
-        })
-            .then((res) => res.json())
-            .then((result) => {
-                console.log(result)
-                if (result.acknowledged) {
-                    toast.success('Your Info is add')
-                    sessionStorage.setItem("Id", result.insertedId);
-                    reset()
-                    setTimeout(navigation('/info'), 1000);
-                }
-            });
+
     };
     return (
         <div className='max-w-[850px] mx-auto p-[25px] lg:p-[40px] rounded-[20px] bg-[#f2f2f2] border-[1px] border-[#6f6f6f]'>
@@ -66,4 +58,4 @@ const Form = () => {
     );
 };
 
-export default Form;
+export default Info;
