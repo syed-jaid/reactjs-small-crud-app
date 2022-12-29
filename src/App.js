@@ -1,12 +1,10 @@
 import './App.css';
+import Form from './Form';
 
 function App() {
   return (
-    <div className="App">
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-      <button class="btn w-64 rounded-full">Button</button>
+    <div className="App mx-auto max-w-[900px] pt-[50px] px-[5px]">
+      <Form />
     </div>
   );
 }
