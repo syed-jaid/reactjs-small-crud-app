@@ -9,14 +9,14 @@ const Form = () => {
     const [selectdata, setSelectData] = useState([])
     const navigation = useNavigate();
     useEffect(() => {
-        fetch("http://localhost:5000/selectingdata")
+        fetch("https://task-server-kappa.vercel.app/selectingdata")
             .then((res) => res.json())
             .then((data) => setSelectData(data[0].data));
     }, []);
     // console.log(selectdata)
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = data => {
-        fetch("http://localhost:5000/saveinfo", {
+        fetch("https://task-server-kappa.vercel.app/saveinfo", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

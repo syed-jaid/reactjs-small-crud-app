@@ -11,13 +11,13 @@ const Info = () => {
     useEffect(() => {
         const id = sessionStorage.getItem("Id")
         // console.log(id)
-        fetch(`http://localhost:5000/userinfo/${id}`)
+        fetch(`https://task-server-kappa.vercel.app/userinfo/${id}`)
             .then((res) => res.json())
             .then((data) => setuserData(data[0]));
     }, []);
 
     useEffect(() => {
-        fetch("http://localhost:5000/selectingdata")
+        fetch("https://task-server-kappa.vercel.app/selectingdata")
             .then((res) => res.json())
             .then((data) => setSelectData(data[0].data));
     }, []);
@@ -27,7 +27,7 @@ const Info = () => {
 
     const onSubmit = data => {
         const id = sessionStorage.getItem("Id")
-        fetch(`http://localhost:5000/userinfo/${id}`, {
+        fetch(`https://task-server-kappa.vercel.app/userinfo/${id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
